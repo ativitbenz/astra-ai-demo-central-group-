@@ -6,7 +6,7 @@ Demonstrate Datastax [Astra's](https://docs.datastax.com/en/astra-serverless/doc
 
 # Demo UI
 
-[demoui.jpg]
+https://github.com/krishnannarayanaswamy/astra-ai-demo/blob/main/demoui.png
 
 
 Some guidance below on how you can learn to do text similarity with Vector search
