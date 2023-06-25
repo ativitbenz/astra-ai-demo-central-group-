@@ -59,7 +59,7 @@ const App = () => {
 	return (
 		<div>
 			<div className="header-section">
-				<h1>Generative AI Retail Product Recommendations demo powered by Astra VectorDB</h1>
+				<h1 style={{ fontSize: 18 }}>Generative AI Retail Product Recommendations demo powered by Astra VectorDB</h1>
 				{storedValues.length < 1 && (
 					<p>
 						Please type what you looking for
