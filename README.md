@@ -101,6 +101,12 @@ python3 similaritysearch.py
 The API in [similaritysearch.py] queries that table and uses the results to give ChatGPT some context to support it's response. The source sample database is mostly consumer brick and mortar products. 
 Here we use the same cohere API that we used to calculate embeddings for each row in the database, but this time we are using your input question to calculate a vector to use in a query. The query vector has the same dimensions (number of entries in the list) as the embeddings we generated for each row in the database. We fetch the top 5 results using ANN Similarity and build a prompt with which we'll query ChatGPT. Note the "roles" in this little conversation give the LLM more context about who that part of the conversation is coming from.
 
+The codes uses a Dataset in thai language. If you prefer to use in other language, modify `Line 112` the below code.
+
+```
+thai_response=translator.translate(human_readable_response, dest='th')
+```
+
 API Info
 
 Request
@@ -131,6 +137,13 @@ Replace `Line 38` with your API Server URL
 ```
 const response = await axios.post('http://localhost:9000/similaritems', { newQuestion });
 ```
+For the first time
+
+```
+npm install
+```
+
+and start the frontent app using
 
 ```
 npm start
