@@ -149,3 +149,15 @@ and start the frontent app using
 npm start
 ```
 --- 
+
+# Credits And References
+
+The react app was generated using [Create React App](https://create-react-app.dev/)
+
+The Chat GPT clone was built by with this [reference](https://kinsta.com/blog/chatgpt-clone/)
+
+The Multi lingual model code was built using this [reference](https://docs.cohere.com/docs/multilingual-language-models)
+
+The google translation python code was built using this [reference](https://pypi.org/project/googletrans/)
+
+The python backend code was built using this colab notebook from [Kiyu Gabriel](https://github.com/qzg) as [reference](https://colab.research.google.com/drive/1j0PZCwyrs6f560siIabLG0YY2PYWtfpx?usp=sharing#scrollTo=24d02afb-13b1-4c71-8610-90768e21989e)
