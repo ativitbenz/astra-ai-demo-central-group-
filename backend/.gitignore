@@ -18,6 +18,8 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.product-feed.txt
+.secure-connect-vector-search-demo.zip
 
 npm-debug.log*
 yarn-debug.log*
