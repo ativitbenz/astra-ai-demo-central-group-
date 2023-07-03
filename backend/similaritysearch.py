@@ -88,8 +88,9 @@ def ann_similarity_search():
 
     products_list = []
 
+    for row in response:
         #trans= translator.translate(row.description)
-        brand_dict = {'role': "assistant", "content": f"{row.description}"}
+        brand_dict = {'role': "assistant", "content": f"{row['id']}, {row['description']}, {row['name']}, {row['price']}"}
         products_list.append(brand_dict)
 
     message_objects.extend(products_list)
