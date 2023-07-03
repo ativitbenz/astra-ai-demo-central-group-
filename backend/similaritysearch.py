@@ -18,8 +18,8 @@ scb_path =os.environ.get('scb_path')
 open_api_key= os.environ.get('openai_api_key')
 keyspace = os.environ.get('keyspace')
 table_name = os.environ.get('table')
-#model_id = "text-embedding-ada-002"
-model_id='embed-multilingual-v2.0'
+model_id = "text-embedding-ada-002"
+#model_id='embed-multilingual-v2.0'
 coherekey = os.environ.get('coherekey')
 openai.api_key = open_api_key
 co = cohere.Client(coherekey)
@@ -41,13 +41,14 @@ CORS(app)
 def ann_similarity_search():
     #customer_query='สีที่ดีที่ละลายได้อย่างสวยงาม'
     customer_query = request.json.get('newQuestion')
-    english_customer_text= translator.translate(customer_query)
-    print(english_customer_text.text)
-    #embedding = openai.Embedding.create(input=customer_query, model=model_id)['data'][0]['embedding']
+    #english_customer_text= translator.translate(customer_query)
+    #print(english_customer_text.text)
+    
     customer_text = []
     customer_text.append(customer_query)
-    response = co.embed(texts=customer_text, model=model_id)
-    embeddings = response.embeddings[0]
+    #response = co.embed(texts=customer_text, model=model_id)
+    embeddings = openai.Embedding.create(input=customer_query, model=model_id)['data'][0]['embedding']
+   # embeddings = response.embeddings[0]
     query = SimpleStatement(
     f"""
     SELECT *
@@ -63,16 +64,9 @@ def ann_similarity_search():
     for r in top_5_products:
         response.append({
             'id': r.product_id,
-            'name': r.title,
+            'name': r.product_name,
             'description': r.description,
-            'link': r.link,
-            'image': r.imagelink,
-            'availability': r.availability,
-            'price': r.price,
-            'brand': r.brand,
-            'condition': r.condition,
-            'productype': r.producttype,
-            'saleprice': r.saleprice
+            'price': r.price
         })
     print(response)
 
@@ -81,7 +75,7 @@ def ann_similarity_search():
                             "content":"You're a chatbot helping customers with questions and helping them with product recommendations"})
 
     message_objects.append({"role":"user",
-                            "content": english_customer_text.text})
+                            "content":customer_query})
 
     message_objects.append({"role":"user",
                             "content": "Please give me a detailed explanation of your recommendations"})
@@ -94,9 +88,8 @@ def ann_similarity_search():
 
     products_list = []
 
-    for row in top_5_products:
-        trans= translator.translate(row.description)
-        brand_dict = {'role': "assistant", "content": f"{trans.text}"}
+        #trans= translator.translate(row.description)
+        brand_dict = {'role': "assistant", "content": f"{row.description}"}
         products_list.append(brand_dict)
 
     message_objects.extend(products_list)
@@ -109,11 +102,11 @@ def ann_similarity_search():
 
     human_readable_response = completion.choices[0].message['content']
     print(human_readable_response)
-    thai_response=translator.translate(human_readable_response, dest='th')
+    #thai_response=translator.translate(human_readable_response, dest='th')
 
     values = dict()
     values['products'] = response
-    values['botresponse'] = thai_response.text
+    values['botresponse'] = human_readable_response
 
     return values
 

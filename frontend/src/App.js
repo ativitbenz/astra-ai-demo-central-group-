@@ -19,9 +19,8 @@ const App = () => {
 			<tbody>
 				{product.map((product, index) => (
 				<tr key={index}>
+					<td>{product.id}</td>
 					<td>{product.name}</td>
-					<td>{product.title}</td>
-					<td>{product.brand}</td>
 					<td>{product.price}</td>
 					<td>{product.description}</td>
 				</tr>
